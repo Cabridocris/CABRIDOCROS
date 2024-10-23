@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HI LABLOVE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            max-width: 400px;
+            background-color: #f9f9f9;
+        }
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        #resetButton {
+            display: none;
+            margin-top: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>HI LABLOVE</h1>
+    <div id="questions">
+        <p>What's your name?</p>
+        <input type="text" id="nameInput" placeholder="Enter your name" />
+        <button onclick="askAboutTalk()">Submit</button>
+    </div>
+    
+    <div id="choices" class="hidden">
+        <p id="greeting"></p>
+        <p id="talkAboutText"></p>
+        <button onclick="talkAbout('howMuchHeLovesMe')">HOW MUCH HE LOVE ME</button>
+        <button onclick="talkAbout('iWantAdvice')">I WANT ADVICE</button>
+    </div>
+    
+    <div id="loveProblem" class="hidden">
+        <p>Are you still asking me how much I love you?</p>
+        <div class="button-container">
+            <button onclick="proceed()">Yes</button>
+            <button id="noButton" onclick="changePosition()">No</button>
+        </div>
+    </div>
+
+    <div id="adviceSection" class="hidden">
+        <p>ARE YOU OKAY LABLOVE?</p>
+        <div class="button-container">
+            <button onclick="respondToAdvice('yes')">Yes, I am</button>
+            <button onclick="respondToAdvice('maybe')">Maybe</button>
+            <button onclick="respondToAdvice('no')">No</button>
+        </div>
+    </div>
+
+    <div id="maybeSection" class="hidden">
+        <p>Are you sure? Choose:</p>
+        <div class="button-container">
+            <button onclick="respondToMaybe('yes')">Yes</button>
+            <button onclick="respondToMaybe('no')">No</button>
+        </div>
+    </div>
+
+    <div id="output"></div>
+    <button id="resetButton" onclick="resetConversation()">Reset</button>
+
+    <script>
+        let userName = '';
+
+        function askAboutTalk() {
+            userName = document.getElementById('nameInput').value;
+            if (userName) {
+                document.getElementById('questions').style.display = 'none';
+                document.getElementById('greeting').innerText = `Hi ${userName},`;
+                document.getElementById('talkAboutText').innerText = `What would you like to talk about?`;
+                document.getElementById('choices').style.display = 'block';
+            } else {
+                alert("Please enter your name.");
+            }
+        }
+
+        function talkAbout(choice) {
+            if (choice === 'howMuchHeLovesMe') {
+                document.getElementById('choices').style.display = 'none';
+                document.getElementById('loveProblem').style.display = 'block';
+            } else if (choice === 'iWantAdvice') {
+                document.getElementById('choices').style.display = 'none';
+                document.getElementById('adviceSection').style.display = 'block';
+            }
+        }
+
+        function proceed() {
+            const output = document.getElementById('output');
+            output.innerHTML = "I love you of course, you are mine, rest, my world, you don't need to ask if I still love you because the world knows how much I love you and I will always love you. Your laugh makes me happy, and when I look into your eyes, I see our future together. Every day I wake up, the first thing that comes to my mind is your beauty and your smile. You bring joy to my life, and I am so lucky to have you. No matter what happens, I'm always by your side. You made my heart the happiest person in the world, and I promise to love you more than day and night. You will always be LABLOVE, LAB, AND MY PRETTY DISNEY PRINCESS.";
+
+            document.getElementById('resetButton').style.display = 'block';
+            document.getElementById('loveProblem').style.display = 'none';
+        }
+
+        function respondToAdvice(answer) {
+            document.getElementById('adviceSection').style.display = 'none';
+
+            if (answer === 'yes') {
+                const output = document.getElementById('output');
+                output.innerHTML = "I'm glad to hear you're okay! Just keep saying that because I'm happy when you're happy. Always remember there are people who love you, and I'm one of them. I LOVE YOU SO MUCH! Be safe always.";
+                document.getElementById('resetButton').style.display = 'block';
+            } else if (answer === 'maybe') {
+                document.getElementById('maybeSection').style.display = 'block';
+            } else {
+                document.getElementById('output').innerHTML = "ohhh... I know it's very hard, we all get tired, of course we're only human so we get tired but always remember don't put pressure on yourself lablove, always remember every problem has a solution, you're not alone in every situation okay, you have your friends with you, the rest of your family, and especially those who love you like me, and you will always remember that we are all here to support you and I know that everyone who trusts you now is proud of you. And It's me, I am so proud of what you're capable of and what makes you special. You also deserve to rest, don't pressure yourself okayyy, always remember there are many people who love you, love you so much LABLOVE MWAHH!!";
+                createThankYouButtons();
+            }
+        }
+
+        function respondToMaybe(answer) {
+            if (answer === 'yes') {
+                document.getElementById('output').innerHTML = "I'm glad to hear you're okay! Just keep saying that because I'm happy when you're happy. Always remember there are people who love you, and I'm one of them. I LOVE YOU SO MUCH! Be safe always.";
+                document.getElementById('resetButton').style.display = 'block';
+            } else {
+                document.getElementById('output').innerHTML = "It's okay to not be okay sometimes. We all have bad days; it’s normal to feel sad or overwhelmed. Just remember to talk about your feelings—it helps. You chose the right person who understands you. Always remember, people love you, like me. Be strong! You’re a brave, independent woman, and I'm so proud of you, LABLOVE. I love you so much.";
+            }
+            createThankYouButtons();
+            document.getElementById('maybeSection').style.display = 'none';
+        }
+
+        function createThankYouButtons() {
+            const thankYouContainer = document.createElement('div');
+            thankYouContainer.className = 'button-container';
+
+            const thankYouButton = document.createElement('button');
+            thankYouButton.innerText = "Thank you so much";
+            thankYouButton.onclick = () => thankYouResponse();
+
+            const okayButton = document.createElement('button');
+            okayButton.innerText = "Okay";
+            okayButton.onclick = () => thankYouResponse();
+
+            thankYouContainer.appendChild(thankYouButton);
+            thankYouContainer.appendChild(okayButton);
+            document.getElementById('output').appendChild(thankYouContainer);
+        }
+
+        function thankYouResponse() {
+            const output = document.getElementById('output');
+            output.innerHTML += "<br>You are perfect no matter who you are, just be proud of yourself and what you can do and what you have now. ILOVEYOUUUUU SOO MUCHHH!";
+            document.getElementById('resetButton').style.display = 'block';
+        }
+
+        function changePosition() {
+            const noButton = document.getElementById('noButton');
+            const buttonContainer = noButton.parentNode;
+            const randomPosition = Math.random() < 0.5 ? '0' : '1';
+            buttonContainer.children[randomPosition].style.order = "1";
+        }
+        
+        function resetConversation() {
+            document.getElementById('questions').style.display = 'block';
+            document.getElementById('choices').style.display = 'none';
+            document.getElementById('loveProblem').style.display = 'none';
+            document.getElementById('adviceSection').style.display = 'none';
+            document.getElementById('maybeSection').style.display = 'none';
+            document.getElementById('output').innerHTML = '';
+            document.getElementById('resetButton').style.display = 'none';
+            document.getElementById('nameInput').value = '';
+        }
+    </script>
+</body>
+</html>
